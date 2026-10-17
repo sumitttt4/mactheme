@@ -11,7 +11,8 @@
     "tauri": "tauri",
     "landing:dev": "npm run dev --prefix landing",
     "landing:build": "npm run build --prefix landing",
-    "landing:check": "npm run typecheck --prefix landing"
+    "landing:check": "npm run typecheck --prefix landing",
+    "build:cloudflare": "npm ci --prefix landing && npm run landing:check && npm run landing:build"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.8.0",
