@@ -7,6 +7,7 @@ on:
       - "landing/**"
       - "shared/**"
       - "wrangler.jsonc"
+      - "package.json"
       - ".github/workflows/deploy-landing.yml"
   workflow_dispatch:
 
