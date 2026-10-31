@@ -30,13 +30,23 @@ export function glyphFor(row: SearchRow): GlyphName {
   return row.kind;
 }
 
-export function Glyph({ row }: { row: SearchRow }) {
+function extension(row: SearchRow): string | null {
+  if (row.kind !== 'file') return null;
+  const dot = row.name.lastIndexOf('.');
+  const ext = dot > 0 ? row.name.slice(dot + 1) : '';
+  return ext && ext.length <= 5 ? ext.toUpperCase() : null;
+}
+
+export function Glyph({ row, size = 'row' }: { row: SearchRow; size?: 'row' | 'large' }) {
   const name = glyphFor(row);
+  const ext = size === 'large' ? extension(row) : null;
+  const px = size === 'large' ? 30 : 20;
   return (
-    <span className={`tile tile-${name}`} aria-hidden="true">
-      <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <span className={`tile tile-${name}${size === 'large' ? ' tile-large' : ''}`} aria-hidden="true">
+      <svg viewBox="0 0 20 20" width={px} height={px} fill="none" stroke="currentColor" strokeWidth={size === 'large' ? 1.3 : 1.5} strokeLinecap="round" strokeLinejoin="round">
         <path d={PATHS[name]} />
       </svg>
+      {ext && <span className="tile-ext">{ext}</span>}
     </span>
   );
 }

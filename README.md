@@ -46,6 +46,13 @@ npm run mock        # Electron with the mock engine
 npm test            # framing, RPC client, validation, mock engine
 ```
 
+## Web preview (Cloudflare)
+
+`npm run build` at the repo root builds the launcher's UI as a static page with sample
+data into `shell/dist-web`. `wrangler.jsonc` serves it as the `mactheme` Worker. Nothing
+opens from there: Enter only says what would happen on Windows. The desktop app never
+loads this mock, because Electron's preload provides the real `window.lode`.
+
 ## Windows, for real
 
 ### Phase 0: prove the toolchain (gate, do not skip)
@@ -71,7 +78,7 @@ cd shell; npm install; npm start  # Ctrl+Space toggles the window
 bridge build. The bridge's stderr goes to `%APPDATA%\Lode\logs\bridge.log`.
 
 Keys: type to search · `↑` `↓` `PgUp` `PgDn` move · `Enter` open · `Ctrl+Enter` show in
-folder · `Tab` / `Shift+Tab` cycle the scope (All / Files / Folders) · `Esc` hide.
+folder · `Ctrl+1`…`9` open that row · `Tab` / `Shift+Tab` cycle the scope (All / Files / Folders) · `Esc` hide.
 
 If Ctrl+Space is taken (Chinese and Japanese IMEs use it), the shell falls back to
 Ctrl+Alt+Space and says so in the tray tooltip. Bare double-Ctrl arrives in phase 6.
