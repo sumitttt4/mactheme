@@ -13,9 +13,8 @@ const PLACEHOLDER: Record<Scope, string> = {
   files: 'Search files and folders',
   folders: 'Search folders',
 };
-// The web preview's starting points (made-up data has to be found somehow).
-const TRY = ['resume', 'screenshot', 'visual', 'display', 'projects', 'pdf'];
-const webPreview = document.documentElement.classList.contains('web-preview');
+// Read at render time: the web build marks the page after this module loads.
+const isWebPreview = () => document.documentElement.classList.contains('web-preview');
 
 export function App() {
   const lode = window.lode;
@@ -50,6 +49,19 @@ export function App() {
       offShown();
     };
   }, [lode]);
+
+  // The web landing page's example chips fill the box.
+  useEffect(() => {
+    if (!isWebPreview()) return;
+    const onTry = (e: Event) => {
+      const text = (e as CustomEvent<string>).detail;
+      if (typeof text !== 'string') return;
+      setQuery(text.slice(0, MAX_QUERY_CHARS));
+      input.current?.focus({ preventScroll: true });
+    };
+    window.addEventListener('lode:try', onTry);
+    return () => window.removeEventListener('lode:try', onTry);
+  }, []);
 
   // Each keystroke asks; the engine runs only the newest search, and an
   // answer to an older one is dropped here too.
@@ -146,7 +158,7 @@ export function App() {
       }
       case 'Escape':
         e.preventDefault();
-        if (webPreview && query) setQuery('');
+        if (isWebPreview() && query) setQuery('');
         else lode.hide();
         break;
     }
@@ -169,7 +181,7 @@ export function App() {
           placeholder={PLACEHOLDER[scope]}
           onChange={(e) => setQuery(e.target.value)}
           spellCheck={false}
-          autoFocus
+          autoFocus={!isWebPreview()}
           role="combobox"
           aria-expanded={showResults}
           aria-controls="results"
@@ -236,25 +248,6 @@ export function App() {
           </div>
           <p className="empty-title">No matches for “{query.trim()}”</p>
           <p className="empty-sub">{scope === 'all' ? 'Check the spelling, or try fewer words.' : 'Press Tab to search everything.'}</p>
-        </div>
-      )}
-
-      {!hasQuery && webPreview && (
-        <div className="welcome">
-          <span className="welcome-label">Try</span>
-          {TRY.map((t) => (
-            <button
-              key={t}
-              className="chip"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                setQuery(t);
-                input.current?.focus();
-              }}
-            >
-              {t}
-            </button>
-          ))}
         </div>
       )}
 
