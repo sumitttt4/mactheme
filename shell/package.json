@@ -1,0 +1,43 @@
+{
+  "name": "lode-shell",
+  "productName": "Lode",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Personal Windows launcher: React UI on WinShun's engine",
+  "main": "dist-electron/electron/main.js",
+  "scripts": {
+    "identity": "node scripts/sync-identity.mjs",
+    "build:electron": "npm run identity && tsc -p tsconfig.electron.json",
+    "build:renderer": "vite build",
+    "build": "npm run build:electron && npm run build:renderer",
+    "dev": "npm run build:electron && node scripts/dev.mjs",
+    "start": "npm run build && electron .",
+    "mock": "npm run build && electron . --mock",
+    "typecheck": "npm run identity && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
+    "test": "npm run build:electron && node --test tests/*.test.mjs",
+    "package": "npm run build && electron-builder --win dir"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "electron": "44.7.2",
+    "electron-builder": "26.17.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.3"
+  },
+  "build": {
+    "appId": "local.lode.launcher",
+    "productName": "Lode",
+    "directories": { "output": "release" },
+    "files": ["dist/**", "dist-electron/**", "build/*.png", "package.json"],
+    "extraResources": [{ "from": "bridge-bin", "to": "bridge", "filter": ["**/*"] }],
+    "win": { "target": "dir", "icon": "build/icon.png" },
+    "publish": null
+  }
+}

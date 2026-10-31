@@ -1,0 +1,15 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,6 +49,12 @@ add_subdirectory(src/stub)
+ add_subdirectory(src/service)
+ add_subdirectory(src/updater)
+ 
++# Personal fork (FORK-NOTES.md): the JSON-RPC bridge for the Electron shell.
++# Only when configured with -DLODE_ROOT=<repo>; a stock build is unchanged.
++if(DEFINED LODE_ROOT)
++    add_subdirectory("${LODE_ROOT}/bridge" "${CMAKE_BINARY_DIR}/bridge")
++endif()
++
+ # The plugins that come with Win顺 (plugins/, docs/plugins.md), staged next
+ # to the build's WinShun.exe the way the installer lays them out: each
+ # folder as it is in the source tree, the SDK file it uses (src/plugins-sdk)
