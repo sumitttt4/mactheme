@@ -2,7 +2,7 @@
 // engine (the bridge, or the mock). The renderer only draws; every request
 // it makes comes through the handlers below, checked.
 
-import { app, BrowserWindow, globalShortcut, ipcMain, Menu, nativeImage, screen, Tray } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain, Menu, nativeImage, nativeTheme, screen, Tray } from 'electron';
 import { join } from 'node:path';
 import { identity } from '../shared/identity';
 import type { EngineState } from '../shared/protocol';
@@ -48,7 +48,7 @@ function createWindow(): BrowserWindow {
     fullscreenable: false,
     skipTaskbar: true,
     alwaysOnTop: true,
-    backgroundColor: '#17171a',
+    backgroundColor: nativeTheme.shouldUseDarkColors ? '#16131f' : '#f4f2f9',
     title: identity.name,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),

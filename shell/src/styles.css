@@ -4,55 +4,63 @@
   --font: 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-display: 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  --bg: #141417;
-  --bg-top: #1b1a1e;
-  --bg-raise: #1c1c20;
-  --bg-pane: #18181b;
-  --line: #2a2a30;
-  --line-soft: #222227;
-  --text: #ededf0;
-  --text-2: #a3a3ad;
-  --text-3: #6e6e78;
-  --accent: #f2b544; /* lode: a vein of gold in dark rock */
+  /* Violet night: the landing page's deep ink (#1B1726) as surfaces, gold as the accent. */
+  --bg: #16131f;
+  --bg-top: #1d1929;
+  --bg-raise: #1f1b2b;
+  --bg-pane: #191623;
+  --line: #2e2942;
+  --line-soft: #26213a;
+  --text: #eeeaf7;
+  --text-2: #a9a2c4;
+  --text-3: #77718c;
+  --tint: #8c76d1;
+  --accent: #d6a24c; /* lode: a vein of gold */
   --accent-2: #ff8a3d;
   --accent-ink: #1a1408;
-  --accent-soft: rgb(242 181 68 / 0.12);
-  --accent-glow: rgb(242 181 68 / 0.28);
-  --hit: #ffd27a;
+  --accent-soft: rgb(214 162 76 / 0.13);
+  --accent-glow: rgb(214 162 76 / 0.28);
+  --select: rgb(214 162 76 / 0.13);
+  --select-line: rgb(214 162 76 / 0.24);
+  --hit: #f3c873;
   --ok: #5fd08a;
-  --wait: #f2b544;
+  --wait: #d6a24c;
   --down: #f06a6a;
-  --kbd-bg: #232328;
-  --kbd-line: #33333a;
+  --kbd-bg: #241f33;
+  --kbd-line: #352f4a;
   --row-h: 50px;
   --radius: 10px;
-  --shadow: 0 30px 80px -20px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(255 255 255 / 0.04);
+  --shadow: 0 30px 80px -20px rgb(8 5 18 / 0.7), 0 0 0 1px rgb(238 234 247 / 0.05);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme='dark']) {
-    --bg: #fbfaf7;
-    --bg-top: #fffefb;
-    --bg-raise: #f4f2ed;
-    --bg-pane: #f7f5f0;
-    --line: #e5e1d7;
-    --line-soft: #eeebe4;
-    --text: #1c1b18;
-    --text-2: #5f5b52;
-    --text-3: #918b7f;
-    --accent: #b7791f;
-    --accent-2: #d2591a;
-    --accent-ink: #fff;
-    --accent-soft: rgb(183 121 31 / 0.1);
-    --accent-glow: rgb(183 121 31 / 0.22);
+    /* Lavender paper (#E9E5F1 family), violet ink. */
+    --bg: #f4f2f9;
+    --bg-top: #f9f8fc;
+    --bg-raise: #ebe7f3;
+    --bg-pane: #efecf6;
+    --line: #dcd6e8;
+    --line-soft: #e6e1ef;
+    --text: #1b1726;
+    --text-2: #5a5470;
+    --text-3: #8a84a0;
+    --tint: #7a63c4;
+    --accent: #b07a24;
+    --accent-2: #c8561c;
+    --accent-ink: #fff9ee;
+    --accent-soft: rgb(176 122 36 / 0.11);
+    --accent-glow: rgb(176 122 36 / 0.22);
+    --select: rgb(122 99 196 / 0.11);
+    --select-line: rgb(122 99 196 / 0.26);
     --hit: #8a5a0f;
     --ok: #2f9d5c;
-    --wait: #c48a1e;
+    --wait: #b07a24;
     --down: #cf3f3f;
     --kbd-bg: #fff;
-    --kbd-line: #ddd8cc;
-    --shadow: 0 30px 70px -24px rgb(60 45 20 / 0.35), 0 0 0 1px rgb(0 0 0 / 0.05);
+    --kbd-line: #d9d3e6;
+    --shadow: 0 30px 70px -24px rgb(42 36 64 / 0.35), 0 0 0 1px rgb(27 23 38 / 0.06);
     color-scheme: light;
   }
 }
@@ -91,7 +99,7 @@ button {
   position: absolute;
   inset: 0 0 auto;
   height: 1px;
-  background: linear-gradient(90deg, transparent 5%, var(--accent-glow) 35%, var(--accent) 50%, var(--accent-glow) 65%, transparent 95%);
+  background: linear-gradient(90deg, transparent 5%, var(--tint) 30%, var(--accent) 50%, var(--tint) 70%, transparent 95%);
   opacity: 0.7;
   pointer-events: none;
 }
@@ -215,6 +223,7 @@ button {
 }
 
 .section-title {
+  --label: var(--tint);
   position: sticky;
   top: -4px;
   z-index: 1;
@@ -224,7 +233,7 @@ button {
   margin: 0;
   padding: 12px 12px 6px;
   background: var(--bg);
-  color: var(--text-3);
+  color: var(--label);
   font: 600 10.5px/1 var(--font);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -254,8 +263,8 @@ button {
 }
 
 .row.selected {
-  background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+  background: var(--select);
+  box-shadow: inset 0 0 0 1px var(--select-line);
 }
 
 .row.offline {
@@ -293,7 +302,7 @@ button {
 }
 
 .tile-folder { --tile: #e9b04f; }
-.tile-app { --tile: #a58bff; }
+.tile-app { --tile: #9d86e6; }
 .tile-setting { --tile: #8fa3b8; }
 .tile-doc { --tile: #5b9dff; }
 .tile-pdf { --tile: #ff6b6b; }
@@ -448,7 +457,7 @@ button {
   font: 600 10px/1 var(--font);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--tint);
 }
 
 .pane-facts dd {

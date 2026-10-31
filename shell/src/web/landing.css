@@ -290,19 +290,6 @@ html.web-preview body {
   max-width: 820px;
   min-height: 548px;
   margin: 0 auto;
-  /* The launcher in a violet-tinted dark, so it belongs on this page. */
-  --bg: #16131f;
-  --bg-top: #1d1929;
-  --bg-raise: #1f1b2b;
-  --bg-pane: #191623;
-  --line: #2e2942;
-  --line-soft: #26213a;
-  --kbd-bg: #241f33;
-  --kbd-line: #352f4a;
-  --text-3: #77718c;
-  --accent: #d6a24c;
-  --accent-soft: rgb(214 162 76 / 0.13);
-  --accent-glow: rgb(214 162 76 / 0.28);
 }
 
 .site .demo .pane-title {
