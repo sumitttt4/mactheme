@@ -48,8 +48,8 @@ npm test            # framing, RPC client, validation, mock engine
 
 ## Web preview (Cloudflare)
 
-`npm run build` at the repo root builds the launcher's UI as a static page with sample
-data into `shell/dist-web`. `wrangler.jsonc` serves it as the `mactheme` Worker. Nothing
+`npm run build` at the repo root builds the landing page (`shell/src/web/`) into
+`shell/dist-web`. Its centrepiece is the launcher's real UI running on sample data. `wrangler.jsonc` serves it as the `mactheme` Worker. Nothing
 opens from there: Enter only says what would happen on Windows. The desktop app never
 loads this mock, because Electron's preload provides the real `window.lode`.
 

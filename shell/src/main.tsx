@@ -1,14 +1,16 @@
-import { StrictMode } from 'react';
+import { StrictMode, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import './styles.css';
 
-// In Electron the preload provides window.lode. In a plain browser (the web
-// preview) a stand-in with made-up rows takes its place.
-if (!window.lode) await import('./web/mockLode');
+// In Electron the preload provides window.lode and the launcher is the whole
+// window. In a plain browser (the Cloudflare site) a stand-in with sample
+// data takes its place, and the launcher sits inside the landing page.
+let page: ReactNode = <App />;
+if (!window.lode) {
+  await import('./web/mockLode');
+  const { Landing } = await import('./web/Landing');
+  page = <Landing />;
+}
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+createRoot(document.getElementById('root')!).render(<StrictMode>{page}</StrictMode>);

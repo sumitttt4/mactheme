@@ -49,3 +49,5 @@ const api: LodeApi = {
 
 window.lode = api;
 document.documentElement.classList.add('web-preview');
+// The launcher is shown dark on the lavender page, whatever the system theme.
+document.documentElement.dataset.theme = 'dark';
