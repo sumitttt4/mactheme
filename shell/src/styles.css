@@ -1,0 +1,423 @@
+/* Lode — the launcher's look. System fonts only (nothing is fetched). */
+
+:root {
+  --font: 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Cascadia Mono', 'Cascadia Code', Consolas, ui-monospace, monospace;
+
+  --bg: #17171a;
+  --bg-raise: #1f1f23;
+  --line: #2b2b31;
+  --text: #ececef;
+  --text-2: #a1a1aa;
+  --text-3: #6d6d77;
+  --accent: #f2b544; /* lode: a vein of gold in dark rock */
+  --accent-ink: #1a1408;
+  --accent-soft: rgb(242 181 68 / 0.13);
+  --accent-line: rgb(242 181 68 / 0.55);
+  --hit: #ffd27a;
+  --ok: #5fd08a;
+  --wait: #f2b544;
+  --down: #f06a6a;
+  --kbd-bg: #26262b;
+  --kbd-line: #34343b;
+  --row-h: 52px;
+  --radius: 10px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --bg: #fbfaf7;
+    --bg-raise: #f3f1ec;
+    --line: #e6e2d9;
+    --text: #1c1b18;
+    --text-2: #5f5b52;
+    --text-3: #8f8a7e;
+    --accent: #b7791f;
+    --accent-ink: #fff;
+    --accent-soft: rgb(183 121 31 / 0.11);
+    --accent-line: rgb(183 121 31 / 0.5);
+    --hit: #8a5a0f;
+    --ok: #2f9d5c;
+    --wait: #c48a1e;
+    --down: #cf3f3f;
+    --kbd-bg: #fff;
+    --kbd-line: #ddd8cc;
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 var(--font);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.launcher {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+/* ---- search bar ---- */
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 62px;
+  padding: 0 14px 0 20px;
+}
+
+.search-icon {
+  flex: none;
+  color: var(--accent);
+}
+
+.query {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: 400 20px/1 var(--font-display);
+  letter-spacing: -0.01em;
+  caret-color: var(--accent);
+  user-select: text;
+}
+
+.query::placeholder {
+  color: var(--text-3);
+}
+
+.scopes {
+  display: flex;
+  flex: none;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--bg-raise);
+  border: 1px solid var(--line);
+}
+
+.scope {
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  font: 500 12px/1 var(--font);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: default;
+}
+
+.scope:hover {
+  color: var(--text);
+}
+
+.scope.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* A hairline under the bar that runs while a search is out. */
+.progress {
+  height: 1px;
+  background: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress.on::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: sweep 0.9s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(340%); }
+}
+
+/* ---- results ---- */
+
+.list-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 4px;
+  color: var(--text-3);
+  font: 600 11px/1 var(--font);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 2px 8px 8px;
+  max-height: calc(var(--row-h) * 8 + 10px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  transition: opacity 120ms;
+}
+
+.results.stale {
+  opacity: 0.6;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--row-h);
+  padding: 0 12px;
+  border-radius: var(--radius);
+  position: relative;
+  cursor: default;
+}
+
+.row.selected {
+  background: var(--accent-soft);
+}
+
+.row.selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.row.offline {
+  opacity: 0.55;
+}
+
+.tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  color: var(--tile, var(--text-2));
+  background: color-mix(in srgb, var(--tile, var(--text-2)) 14%, transparent);
+}
+
+.tile-folder { --tile: #e9b04f; }
+.tile-app { --tile: #a58bff; }
+.tile-setting { --tile: #8fa3b8; }
+.tile-doc { --tile: #5b9dff; }
+.tile-pdf { --tile: #ff6b6b; }
+.tile-sheet { --tile: #3fc27f; }
+.tile-slides { --tile: #ff9152; }
+.tile-image { --tile: #f37ac0; }
+.tile-video { --tile: #b77cff; }
+.tile-audio { --tile: #35c6c0; }
+.tile-code { --tile: #4fc3f7; }
+.tile-archive { --tile: #c49a6c; }
+.tile-exe { --tile: #7f8cff; }
+.tile-text { --tile: #a1a1aa; }
+.tile-web { --tile: #4fc3f7; }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .tile {
+    color: color-mix(in srgb, var(--tile, var(--text-2)) 78%, #000);
+    background: color-mix(in srgb, var(--tile, var(--text-2)) 15%, #fff);
+  }
+}
+
+.row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-name,
+.row-detail {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-name {
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+.row-name mark {
+  background: none;
+  color: var(--hit);
+  font-weight: 600;
+}
+
+.row-detail {
+  margin-top: 1px;
+  font-size: 12px;
+  color: var(--text-3);
+  direction: ltr;
+}
+
+.row.selected .row-detail {
+  color: var(--text-2);
+}
+
+.row-side {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.row-meta {
+  font-variant-numeric: tabular-nums;
+}
+
+.row-kind {
+  min-width: 46px;
+  text-align: right;
+  font: 600 10.5px/1 var(--font);
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.row-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ---- empty, problems ---- */
+
+.empty {
+  padding: 26px 20px 30px;
+  text-align: center;
+}
+
+.empty-title {
+  margin: 0;
+  font: 500 15px/1.3 var(--font-display);
+  color: var(--text);
+}
+
+.empty-sub {
+  margin: 6px 0 0;
+  color: var(--text-3);
+  font-size: 12.5px;
+}
+
+.problem {
+  margin: 6px 12px 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--down);
+  background: color-mix(in srgb, var(--down) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--down) 25%, transparent);
+}
+
+/* ---- footer ---- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 36px;
+  padding: 0 14px 0 20px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-raise);
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.status-down {
+  color: var(--down);
+}
+
+.status-note {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-line);
+  font-size: 10.5px;
+  color: var(--text-2);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-ok { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 18%, transparent); }
+.dot-wait { background: var(--wait); animation: pulse 1.4s ease-in-out infinite; }
+.dot-down { background: var(--down); }
+
+@keyframes pulse {
+  50% { opacity: 0.35; }
+}
+
+.hints {
+  display: flex;
+  gap: 14px;
+  white-space: nowrap;
+}
+
+.hints > span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.hints kbd:last-of-type {
+  margin-right: 3px;
+}
+
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 4px;
+  border: 1px solid var(--kbd-line);
+  border-bottom-width: 2px;
+  background: var(--kbd-bg);
+  color: var(--text-2);
+  font: 500 10.5px/1 var(--font);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress.on::after,
+  .dot-wait { animation: none; }
+}

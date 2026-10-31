@@ -1,7 +1,12 @@
 # Third-party notices
 
-MacTheme uses React (MIT), Motion (MIT), Lucide (ISC), Tailwind CSS (MIT), Vite (MIT), Tauri and its official plugins (MIT/Apache-2.0), and the Rust windows/windows-sys bindings (MIT/Apache-2.0). Exact dependency versions are recorded in package-lock.json and src-tauri/Cargo.lock; upstream packages carry their licenses.
-
-The portable Windows GNU build includes Microsoft's WebView2Loader.dll from the WebView2 SDK distributed through webview2-com-sys. The accompanying Microsoft WebView2 SDK license is included in the portable archive. The separately installed Evergreen WebView2 Runtime is governed by Microsoft's own terms.
-
-No Apple system icons, font binaries, wallpaper, or animation code are included. Application icons are extracted locally from the user's installed Windows software and are not distributed as a copied icon pack.
+- **WinShun** (https://github.com/LingCore/WinShun), MIT License, Copyright (c) LingCore
+  and contributors. The bridge (`bridge/`) is built against WinShun's source and links
+  its `wscore` and `wsmcp_proto` libraries. The source is not included here.
+  `scripts/setup-upstream.ps1` clones it, and its `LICENSE` and `third_party/*/LICENSE`
+  files stay in that clone. Keep them with any build output.
+- **Qt 6** (open-source edition, LGPL-3.0 / GPL), linked dynamically by `wsbridge.exe`.
+  That's fine for personal use. Re-check the obligations before distributing anything.
+- **Electron**, **React**, **Vite** and the other npm packages: their licenses ship in
+  `shell/node_modules/*/LICENSE`. Electron's Chromium notices are in
+  `LICENSES.chromium.html` next to the packaged executable.

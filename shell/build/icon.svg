@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Placeholder mark (identity.json "placeholder": true): a lens over a vein of ore. -->
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#17171a"/>
+  <path d="M28 196 L104 150 L150 164 L228 112" fill="none" stroke="#3a3122" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="114" cy="112" r="56" fill="none" stroke="#f2b544" stroke-width="18"/>
+  <path d="M155 153 L196 194" stroke="#f2b544" stroke-width="22" stroke-linecap="round"/>
+  <path d="M114 86 L136 106 L124 136 L100 136 L90 108 Z" fill="#f2b544"/>
+  <path d="M114 86 L124 136 M90 108 L136 106" stroke="#17171a" stroke-width="3" opacity=".35"/>
+</svg>
