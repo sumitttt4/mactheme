@@ -30,5 +30,5 @@ export default defineConfig({
   base: './',
   plugins: [react(), csp()],
   server: { port: 5173, strictPort: true, host: 'localhost' },
-  build: { outDir: 'dist', emptyOutDir: true, target: 'chrome130', modulePreload: { polyfill: false } },
+  build: { outDir: 'dist', emptyOutDir: true, target: 'es2022', modulePreload: { polyfill: false } },
 });

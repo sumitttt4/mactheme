@@ -4,3 +4,4 @@ dist-electron/
 release/
 bridge-bin/
 shared/identity.ts
+dist-web/

@@ -53,4 +53,5 @@ side-by-side comparison with stock WinShun where one exists.
 ## Gaps logged (deferred, not dropped)
 
 - Run as administrator (an elevatable app with Ctrl+Shift+Enter): phase 2, with the rest of the keys.
+- Ctrl+1..9 (open the nth row) landed early, with the redesign; the rest of phase 2 has not.
 - Real file icons: phase 3 (ThumbnailProvider / FileIconProvider port). Phase 1 uses glyph tiles.

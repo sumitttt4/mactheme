@@ -15,7 +15,8 @@
     "mock": "npm run build && electron . --mock",
     "typecheck": "npm run identity && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
     "test": "npm run build:electron && node --test tests/*.test.mjs",
-    "package": "npm run build && electron-builder --win dir"
+    "package": "npm run build && electron-builder --win dir",
+    "build:web": "vite build --outDir dist-web"
   },
   "dependencies": {
     "react": "19.3.0",
@@ -34,10 +35,28 @@
   "build": {
     "appId": "local.lode.launcher",
     "productName": "Lode",
-    "directories": { "output": "release" },
-    "files": ["dist/**", "dist-electron/**", "build/*.png", "package.json"],
-    "extraResources": [{ "from": "bridge-bin", "to": "bridge", "filter": ["**/*"] }],
-    "win": { "target": "dir", "icon": "build/icon.png" },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "build/*.png",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "bridge-bin",
+        "to": "bridge",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": "dir",
+      "icon": "build/icon.png"
+    },
     "publish": null
   }
 }

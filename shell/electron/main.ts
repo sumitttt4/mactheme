@@ -13,7 +13,7 @@ import { lockDown } from './lockdown';
 import { MockEngine } from './mockEngine';
 import * as validate from './validate';
 
-const WIDTH = 720;
+const WIDTH = 820;
 const HOTKEYS = ['Control+Space', 'Control+Alt+Space']; // the first that Windows lets us have
 const devUrl = process.env.LODE_DEV_URL;
 const useMock = process.argv.includes('--mock') || process.env.LODE_MOCK === '1' || process.platform !== 'win32';

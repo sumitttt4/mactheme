@@ -1,0 +1,9 @@
+{
+  "name": "lode",
+  "private": true,
+  "description": "Personal Windows launcher. The app is in shell/ and bridge/; this file only builds the web preview (Cloudflare).",
+  "scripts": {
+    "build": "node scripts/build-web.mjs",
+    "test": "npm test --prefix shell"
+  }
+}

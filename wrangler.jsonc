@@ -1,0 +1,9 @@
+{
+  // The launcher's UI as a web preview (mock data). Built by `npm run build`.
+  "name": "mactheme",
+  "compatibility_date": "2026-10-17",
+  "assets": {
+    "directory": "./shell/dist-web",
+    "not_found_handling": "single-page-application"
+  }
+}
