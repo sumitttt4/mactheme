@@ -1,0 +1,70 @@
+# Builds Lode for Windows and publishes it as a GitHub release.
+#   git tag v0.1.0 && git push origin v0.1.0
+# or run it by hand from the Actions tab (a draft release, to check first).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: shell/package-lock.json
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Install Ninja
+        run: choco install ninja --no-progress -y
+
+      - name: Clone WinShun (pinned) and apply the patch
+        shell: pwsh
+        run: ./scripts/setup-upstream.ps1
+
+      - name: Build the bridge
+        shell: pwsh
+        run: ./scripts/build-bridge.ps1 -QtDir "$env:QT_ROOT_DIR"
+
+      - name: Test and build the shell
+        working-directory: shell
+        run: |
+          npm ci --no-audit --no-fund
+          npm test
+          npm run package
+
+      - name: Make the zip
+        id: zip
+        shell: pwsh
+        run: |
+          $version = (Get-Content shell/package.json | ConvertFrom-Json).version
+          $out = "Lode-$version-windows-x64"
+          Copy-Item shell/release/win-unpacked $out -Recurse
+          Copy-Item LICENSE, THIRD-PARTY-NOTICES.md "$out/"
+          Copy-Item upstream/LICENSE "$out/LICENSE.WinShun.txt"
+          Copy-Item "$env:QT_ROOT_DIR/../../Licenses" "$out/licenses-qt" -Recurse -ErrorAction SilentlyContinue
+          Compress-Archive -Path $out -DestinationPath "$out.zip"
+          "file=$out.zip" >> $env:GITHUB_OUTPUT
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.zip.outputs.file }}
+          draft: ${{ github.event_name == 'workflow_dispatch' }}
+          prerelease: true
+          generate_release_notes: true

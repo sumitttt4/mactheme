@@ -1,0 +1,86 @@
+<!doctype html>
+<!-- The social preview (public/og.png), 1200×630. Rendered with: node og/render.cjs -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Geist Serif'; src: url('../src/web/fonts/GeistSerif.woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Figtree'; src: url('../src/web/fonts/Figtree.woff2'); font-weight: 300 900; }
+@font-face { font-family: 'Geist Mono'; src: url('../src/web/fonts/GeistMono.woff2'); font-weight: 100 900; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  width: 1200px; height: 630px; overflow: hidden; position: relative;
+  font-family: 'Figtree', sans-serif; color: #1b1726;
+  background:
+    radial-gradient(700px 420px at 10% 0%, rgb(196 145 63 / .22), transparent 60%),
+    radial-gradient(800px 520px at 95% 100%, rgb(140 118 209 / .38), transparent 60%),
+    #e9e5f1;
+}
+body::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgb(27 23 38 / .1) 1px, transparent 1.3px); background-size: 22px 22px;
+  mask-image: linear-gradient(90deg, transparent 30%, #000 75%);
+}
+.left { position: absolute; left: 72px; top: 64px; width: 560px; }
+.brand { display: flex; align-items: center; gap: 12px; font: 400 34px/1 'Geist Serif'; letter-spacing: -.02em; }
+h1 { margin: 64px 0 0; font: 400 74px/0.98 'Geist Serif'; letter-spacing: -.04em; }
+p { margin: 26px 0 0; font-size: 24px; line-height: 1.4; color: #5a5470; max-width: 480px; }
+.tags { position: absolute; left: 72px; bottom: 60px; display: flex; gap: 10px; }
+.tag { padding: 9px 16px; border-radius: 999px; border: 1px solid rgb(27 23 38 / .18); background: #f4f2f9; font-size: 18px; font-weight: 550; color: #3b3550; }
+.tag.gold { background: #c4913f; border-color: transparent; color: #fff9ee; }
+.win {
+  position: absolute; left: 690px; top: 104px; width: 560px; border-radius: 18px; overflow: hidden;
+  background: linear-gradient(180deg, #1d1929, #16131f 90px); border: 1px solid #2e2942;
+  box-shadow: 0 50px 90px -30px rgb(27 23 38 / .6), 0 0 0 1px rgb(0 0 0 / .2);
+  color: #eeeaf7;
+}
+.win::before { content: ''; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, transparent 5%, #8c76d1 30%, #d6a24c 50%, #8c76d1 70%, transparent 95%); }
+.bar { display: flex; align-items: center; gap: 14px; height: 74px; padding: 0 24px; border-bottom: 1px solid #2e2942; font-size: 26px; }
+.bar svg { color: #d6a24c; }
+.caret { width: 2px; height: 28px; background: #d6a24c; margin-left: -10px; }
+.sec { padding: 16px 24px 6px; font: 600 12px/1 'Figtree'; letter-spacing: .1em; color: #8c76d1; }
+.row { display: flex; align-items: center; gap: 14px; height: 62px; margin: 0 10px; padding: 0 14px; border-radius: 12px; }
+.row.sel { background: rgb(214 162 76 / .13); box-shadow: inset 0 0 0 1px rgb(214 162 76 / .24); }
+.tile { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; }
+.n { font-size: 19px; } .n b { color: #f3c873; font-weight: 600; }
+.d { font-size: 14px; color: #77718c; margin-top: 2px; }
+.m { margin-left: auto; font-size: 14px; color: #77718c; }
+.foot { margin-top: 10px; height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 24px; border-top: 1px solid #2e2942; background: #1f1b2b; font-size: 14px; color: #77718c; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #5fd08a; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="44" height="44"><rect x="1" y="1" width="30" height="30" rx="8" fill="#1B1726"/><circle cx="14" cy="14" r="6.5" fill="none" stroke="#C4913F" stroke-width="2.4"/><path d="M19 19l5 5" stroke="#C4913F" stroke-width="2.8" stroke-linecap="round"/><path d="M14 10.6l2.7 2.3-1.3 3.4h-2.8l-1.2-3.2Z" fill="#C4913F"/></svg>
+      Lode
+    </div>
+    <h1>Find anything,<br>before you finish typing.</h1>
+    <p>The open-source keyboard launcher for Windows.</p>
+  </div>
+  <div class="tags"><span class="tag gold">Free &amp; open source</span><span class="tag">MIT</span><span class="tag">Windows 10 &amp; 11</span></div>
+
+  <div class="win">
+    <div class="bar">
+      <svg viewBox="0 0 20 20" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.75" cy="8.75" r="5.5"/><path d="m13 13 4.25 4.25"/></svg>
+      resume<span class="caret"></span>
+    </div>
+    <div class="sec">FILES</div>
+    <div class="row sel">
+      <span class="tile" style="color:#ff6b6b;background:rgb(255 107 107 / .16)"><svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 2.75h6.5l3.5 3.5v11H5ZM11.5 2.75v3.5H15"/></svg></span>
+      <div><div class="n"><b>Resume</b> 2026.pdf</div><div class="d">C:\Users\me\Documents</div></div><span class="m">9 days ago</span>
+    </div>
+    <div class="row">
+      <span class="tile" style="color:#5b9dff;background:rgb(91 157 255 / .16)"><svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 2.75h6.5l3.5 3.5v11H5ZM11.5 2.75v3.5H15M7.5 10h5M7.5 12.75h5"/></svg></span>
+      <div><div class="n"><b>Resume</b> 2025.docx</div><div class="d">C:\Users\me\Documents</div></div><span class="m">Nov 25</span>
+    </div>
+    <div class="sec">FOLDERS</div>
+    <div class="row">
+      <span class="tile" style="color:#e9b04f;background:rgb(233 176 79 / .16)"><svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M2.75 6.25a1.5 1.5 0 0 1 1.5-1.5h3.4l1.6 1.7h6.5a1.5 1.5 0 0 1 1.5 1.5v6.8a1.5 1.5 0 0 1-1.5 1.5H4.25a1.5 1.5 0 0 1-1.5-1.5Z"/></svg></span>
+      <div><div class="n"><b>Resume</b> templates</div><div class="d">C:\Users\me\Documents</div></div><span class="m">yesterday</span>
+    </div>
+    <div class="foot"><span class="dot"></span>Ctrl+Space from anywhere</div>
+  </div>
+</body>
+</html>

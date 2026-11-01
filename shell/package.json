@@ -55,8 +55,16 @@
     ],
     "win": {
       "target": "dir",
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "executableName": "Lode"
     },
     "publish": null
-  }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sumitttt4/mactheme.git"
+  },
+  "homepage": "https://mactheme.sumit4.workers.dev/",
+  "author": "sumitttt4"
 }

@@ -1,13 +1,29 @@
 # Lode
 
-> **Lode** is a placeholder name, and the icon is a placeholder too (`identity.json`,
-> `"placeholder": true`). Both are open question 1 below. Change the name in
-> `identity.json`: the bridge's CMake and the shell both read it from there.
+**The open-source keyboard launcher for Windows.** Files, folders, apps and settings in one
+list, found as you type. Free and private, MIT licensed.
 
-A personal Windows launcher. The interface is React + TypeScript in Electron. The engine
-is [WinShun](https://github.com/LingCore/WinShun)'s C++ search core (MIT): its NTFS
-index service, name search with pinyin, and its app and Windows-settings catalogs. A
-small C++ bridge serves that engine over a named pipe.
+[Website and live demo](https://mactheme.sumit4.workers.dev/) · [Download](https://github.com/sumitttt4/mactheme/releases/latest) · [License](LICENSE)
+
+> **Lode** is a working name, and the icon is a working mark too (`identity.json`).
+> Both are set in one place: the bridge's CMake and the shell both read them from there.
+
+## Download
+
+Get the zip for Windows 10/11 (x64) from
+[Releases](https://github.com/sumitttt4/mactheme/releases/latest). Unzip it, run `Lode.exe`
+and press `Ctrl+Space`. For instant results, install
+[WinShun](https://github.com/LingCore/WinShun)'s index service once (one admin consent).
+Without it, Lode walks your drives with your normal rights.
+
+Releases are built by `.github/workflows/release.yml` whenever a `v*` tag is pushed.
+
+## How it fits together
+
+The interface is React + TypeScript in Electron. The engine is
+[WinShun](https://github.com/LingCore/WinShun)'s C++ search core (MIT): its NTFS index
+service, name search with pinyin, and its app and Windows-settings catalogs. A small C++
+bridge serves that engine over a named pipe.
 
 ```
  ┌──────────── shell/ (Electron) ────────────┐        ┌──── bridge/ wsbridge.exe ────┐
@@ -46,7 +62,7 @@ npm run mock        # Electron with the mock engine
 npm test            # framing, RPC client, validation, mock engine
 ```
 
-## Web preview (Cloudflare)
+## Website (Cloudflare)
 
 `npm run build` at the repo root builds the landing page (`shell/src/web/`) into
 `shell/dist-web`. Its centrepiece is the launcher's real UI running on sample data. `wrangler.jsonc` serves it as the `mactheme` Worker. Nothing
@@ -130,4 +146,6 @@ syntax-checked but **not yet built with MSVC or run**. That happens on the Windo
    service name and pipe.
 3. If time gets tight, which later phases move first. Nothing gets dropped silently.
 
-License notices: [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
+## License
+
+MIT, see [`LICENSE`](LICENSE). Third-party notices: [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).

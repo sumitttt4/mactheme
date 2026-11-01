@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import { App } from '../App';
 import './landing.css';
 
+const REPO = 'https://github.com/sumitttt4/mactheme';
+const DOWNLOAD = `${REPO}/releases/latest`;
 const TRY = ['resume', 'screenshots', 'visual studio', 'display', 'projects', 'budget'];
 
 const SECTIONS: [string, string][] = [
   ['demo', 'Demo'],
   ['feel', 'How it feels'],
   ['inside', 'Inside'],
+  ['download', 'Download'],
   ['roadmap', 'Roadmap'],
   ['questions', 'Questions'],
 ];
@@ -43,24 +46,28 @@ const PHASES: [string, string, string, 'now' | 'next' | 'later'][] = [
 
 const FAQ: [string, string][] = [
   [
-    'Can I download it?',
-    'Not yet. Lode is a personal build for one laptop, in progress. The demo on this page is the real interface running on sample data.',
+    'Is it free?',
+    'Yes. Lode is open source under the MIT license: use it, change it, share it. The search engine it builds on, WinShun, is MIT too.',
+  ],
+  [
+    'What do I need?',
+    'Windows 10 or 11, 64-bit. Download the zip, unzip it anywhere and run Lode.exe. No installer, no account.',
+  ],
+  [
+    'Why is there an optional service?',
+    'Reading a drive’s file table directly needs administrator rights. WinShun’s small index service does that, installed once with one consent, and makes results instant. Without it Lode still works, with your normal rights, by walking your drives (slower the first time).',
+  ],
+  [
+    'Does it send anything online?',
+    'No. Nothing leaves the PC by default: no accounts, no telemetry. Each remote feature has its own switch, off until you turn it on, with a note on what it sends.',
   ],
   [
     'Does it work on macOS or Linux?',
     'No. It searches Windows drives by reading their NTFS file tables, and opens things the way Windows does.',
   ],
   [
-    'What is WinShun?',
-    'An open-source (MIT) Windows search launcher. Lode reuses its engine and index service, and replaces its interface with this one.',
-  ],
-  [
-    'Does it send anything online?',
-    'No. Nothing leaves the PC by default. Each remote feature has its own switch, off until it is turned on, with a note on what it sends.',
-  ],
-  [
-    'Why does it need a service?',
-    'Reading a drive’s file table takes administrator rights. A small Windows service does that once, installed with one consent, so the launcher itself runs with normal rights.',
+    'How can I help?',
+    'Try it, open an issue when something is off, or send a pull request. The roadmap above is the plan; the README explains how the pieces fit.',
   ],
 ];
 
@@ -76,6 +83,30 @@ function Mark({ size = 24 }: { size?: number }) {
       <circle cx="14" cy="14" r="6.5" fill="none" stroke="#C4913F" strokeWidth="2.4" />
       <path d="M19 19l5 5" stroke="#C4913F" strokeWidth="2.8" strokeLinecap="round" />
       <path d="M14 10.6l2.7 2.3-1.3 3.4h-2.8l-1.2-3.2Z" fill="#C4913F" />
+    </svg>
+  );
+}
+
+function GitHubIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" width={size} height={size} fill="currentColor" aria-hidden="true">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </svg>
+  );
+}
+
+function DownloadIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10" />
+    </svg>
+  );
+}
+
+function WindowsIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" width={size} height={size} fill="currentColor" aria-hidden="true">
+      <path d="M1 2.6 6.7 1.8v5.5H1ZM7.4 1.7 15 .6v6.7H7.4ZM1 8h5.7v5.5L1 12.7ZM7.4 8H15v6.8l-7.6-1.1Z" />
     </svg>
   );
 }
@@ -116,18 +147,25 @@ export function Landing() {
               </a>
             ))}
           </nav>
-          <a className="btn-dark" href="#demo">
-            Try the demo
-          </a>
+          <div className="nav-actions">
+            <a className="nav-github" href={REPO} target="_blank" rel="noreferrer noopener" aria-label="Lode on GitHub">
+              <GitHubIcon size={18} />
+            </a>
+            <a className="btn-dark" href="#download">
+              <DownloadIcon />
+              Download
+            </a>
+          </div>
         </div>
       </header>
 
       <main id="top">
         <section className="hero">
-          <p className="badge-line">
-            <span className="badge-new">Phase 1</span>
-            Search box and engine bridge, in progress
-          </p>
+          <a className="badge-line" href={REPO} target="_blank" rel="noreferrer noopener">
+            <span className="badge-new">Open source</span>
+            MIT licensed · Windows 10 and 11
+            <Arrow />
+          </a>
           <h1>
             Find anything,
             <br />
@@ -137,6 +175,17 @@ export function Landing() {
             A keyboard launcher for Windows. Files, folders, apps and settings in one list, from an index that already knows every
             file on your drives.
           </p>
+          <div className="hero-actions">
+            <a className="btn-dark btn-lg" href={DOWNLOAD}>
+              <WindowsIcon />
+              Download for Windows
+            </a>
+            <a className="btn-light btn-lg" href={REPO} target="_blank" rel="noreferrer noopener">
+              <GitHubIcon />
+              View on GitHub
+            </a>
+          </div>
+          <p className="hero-meta">Free and open source · x64 · no installer, no account</p>
           <div className="chips" aria-label="Try a search">
             {TRY.map((t) => (
               <button key={t} className="chip-try" onClick={() => tryQuery(t)}>
@@ -153,8 +202,8 @@ export function Landing() {
             </div>
           </div>
           <p className="stage-note">
-            The real Lode interface, running on sample data in your browser. Type, use the arrow keys, press Tab. Nothing on your
-            computer is searched or opened.
+            The real Lode interface, running on sample data in your browser. Type, use the arrow keys, press Tab. The app searches
+            your own drives.
           </p>
         </section>
 
@@ -256,12 +305,94 @@ export function Landing() {
           </div>
         </section>
 
+        <section className="download" id="download">
+          <div className="download-card">
+            <div className="download-main">
+              <p className="kicker">Download</p>
+              <h2>
+                Get Lode
+                <br />
+                for Windows.
+              </h2>
+              <p className="download-lede">Free and open source under the MIT license. Windows 10 and 11, 64-bit.</p>
+              <div className="download-actions">
+                <a className="btn-gold btn-lg" href={DOWNLOAD}>
+                  <DownloadIcon />
+                  Download the latest release
+                </a>
+                <a className="btn-light btn-lg" href={`${REPO}/releases`} target="_blank" rel="noreferrer noopener">
+                  All releases
+                </a>
+              </div>
+            </div>
+            <ol className="steps">
+              <li>
+                <span className="step-n">1</span>
+                <span>
+                  <strong>Unzip and run</strong>
+                  Unzip <code>Lode-…-windows-x64.zip</code> anywhere and open <code>Lode.exe</code>. It lives in the tray.
+                </span>
+              </li>
+              <li>
+                <span className="step-n">2</span>
+                <span>
+                  <strong>Press Ctrl+Space</strong>
+                  From any app. Type, then Enter to open, or Ctrl+Enter to show the file in its folder.
+                </span>
+              </li>
+              <li>
+                <span className="step-n">3</span>
+                <span>
+                  <strong>Optional: instant index</strong>
+                  Install{' '}
+                  <a href="https://github.com/LingCore/WinShun" target="_blank" rel="noreferrer noopener">
+                    WinShun
+                  </a>
+                  ’s index service once (one admin consent) and results come straight from your drives’ file tables.
+                </span>
+              </li>
+            </ol>
+          </div>
+
+          <div className="source">
+            <div>
+              <p className="kicker">Build it yourself</p>
+              <p className="source-lede">
+                Everything is on GitHub: the React interface, the C++ bridge and the scripts that build them. Issues and pull
+                requests are welcome.
+              </p>
+              <a className="link-arrow" href={REPO} target="_blank" rel="noreferrer noopener">
+                <GitHubIcon /> sumitttt4/mactheme <Arrow />
+              </a>
+            </div>
+            <pre className="code" aria-label="Build from source">
+              <code>
+                <span className="c"># Windows · PowerShell · VS 2022 + Qt 6.8 + Node 22</span>
+                {'\n'}git clone {REPO}.git lode
+                {'\n'}cd lode
+                {'\n'}./scripts/setup-upstream.ps1
+                {'\n'}./scripts/build-bridge.ps1
+                {'\n'}cd shell; npm install; npm start
+              </code>
+            </pre>
+          </div>
+        </section>
+
         <section className="roadmap" id="roadmap">
-          <h2>
-            Seven phases.
-            <br />
-            Nothing dropped.
-          </h2>
+          <div>
+            <h2>
+              Where it’s
+              <br />
+              going.
+            </h2>
+            <p className="roadmap-note">
+              Seven phases to match everything WinShun does, in a new interface. Follow along or pitch in on{' '}
+              <a href={REPO} target="_blank" rel="noreferrer noopener">
+                GitHub
+              </a>
+              .
+            </p>
+          </div>
           <ol className="phases">
             {PHASES.map(([n, title, body, state]) => (
               <li key={n} className={`phase phase-${state}`}>
@@ -300,11 +431,13 @@ export function Landing() {
             Find it. Get back to work.
           </h2>
           <div className="closing-actions">
-            <a className="btn-dark" href="#demo">
-              Try the demo
+            <a className="btn-dark btn-lg" href={DOWNLOAD}>
+              <WindowsIcon />
+              Download for Windows
             </a>
-            <a className="btn-light" href="#roadmap">
-              See the roadmap
+            <a className="btn-light btn-lg" href={REPO} target="_blank" rel="noreferrer noopener">
+              <GitHubIcon />
+              Star on GitHub
             </a>
           </div>
         </section>
@@ -312,18 +445,39 @@ export function Landing() {
 
       <footer className="site-footer">
         <div className="footer-inner">
-          <a className="brand" href="#top">
-            <Mark size={20} />
-            Lode
-          </a>
-          <span>A personal project, not a product.</span>
-          <span>
-            Engine by{' '}
-            <a href="https://github.com/LingCore/WinShun" target="_blank" rel="noreferrer noopener">
-              WinShun
-            </a>{' '}
-            (MIT). Type set in Geist Serif and Figtree.
-          </span>
+          <div className="footer-brand">
+            <a className="brand" href="#top">
+              <Mark size={20} />
+              Lode
+            </a>
+            <p>A fast, private launcher for Windows. Open source under the MIT license.</p>
+          </div>
+          <nav className="footer-cols" aria-label="Footer">
+            <div>
+              <h4>Product</h4>
+              <a href="#demo">Demo</a>
+              <a href="#download">Download</a>
+              <a href="#roadmap">Roadmap</a>
+              <a href="#questions">Questions</a>
+            </div>
+            <div>
+              <h4>Open source</h4>
+              <a href={REPO} target="_blank" rel="noreferrer noopener">GitHub</a>
+              <a href={`${REPO}/releases`} target="_blank" rel="noreferrer noopener">Releases</a>
+              <a href={`${REPO}/issues`} target="_blank" rel="noreferrer noopener">Issues</a>
+              <a href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noreferrer noopener">MIT license</a>
+            </div>
+            <div>
+              <h4>Built on</h4>
+              <a href="https://github.com/LingCore/WinShun" target="_blank" rel="noreferrer noopener">WinShun (MIT)</a>
+              <a href="https://www.electronjs.org/" target="_blank" rel="noreferrer noopener">Electron</a>
+              <a href="https://react.dev/" target="_blank" rel="noreferrer noopener">React</a>
+            </div>
+          </nav>
+        </div>
+        <div className="footer-base">
+          <span>© 2026 Lode contributors</span>
+          <span>Type set in Geist Serif and Figtree</span>
         </div>
       </footer>
     </div>

@@ -61,4 +61,8 @@ New-Item -ItemType Directory -Force $bin | Out-Null
 Copy-Item $exe $bin -Force
 & "$QtDir\bin\windeployqt.exe" --no-translations --no-system-d3d-compiler --no-opengl-sw --no-compiler-runtime "$bin\wsbridge.exe"
 if ($LASTEXITCODE) { throw 'windeployqt failed' }
+# The MSVC runtime next to the exe (app-local), so a PC without Visual
+# Studio or the redistributable can run it.
+$crt = if ($env:VCToolsRedistDir) { Get-ChildItem "$env:VCToolsRedistDir\x64" -Directory -Filter 'Microsoft.VC*.CRT' | Select-Object -First 1 } else { $null }
+if ($crt) { Copy-Item "$($crt.FullName)\*.dll" $bin -Force } else { Write-Warning 'MSVC runtime not found: wsbridge needs the VC++ redistributable on the target PC' }
 Write-Host "wsbridge deployed to $bin"
