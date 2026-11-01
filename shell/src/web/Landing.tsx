@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { App } from '../App';
+import { StageShader } from './StageShader';
 import './landing.css';
 
 const REPO = 'https://github.com/sumitttt4/mactheme';
@@ -197,6 +198,7 @@ export function Landing() {
 
         <section className="stage" id="demo" aria-label="Interactive demo">
           <div className="stage-inner">
+            <StageShader />
             <div className="demo">
               <App />
             </div>

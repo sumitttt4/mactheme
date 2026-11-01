@@ -13,3 +13,6 @@
 - **Geist Serif, Geist Mono** (Vercel, npm `geist@1.9.0`) and **Figtree** (npm
   `@fontsource-variable/figtree@5.3.0`), SIL Open Font License 1.1. These are used only
   by the web landing page. The font files and their licences are in `shell/src/web/fonts/`.
+- **Paper Shaders** (`@paper-design/shaders-react@0.0.81`), Apache License 2.0. Draws the
+  animated backdrop behind the demo on the web landing page only. The desktop app doesn't
+  load it.

@@ -19,6 +19,7 @@
     "build:web": "vite build --outDir dist-web"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "0.0.81",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
