@@ -6,7 +6,7 @@ import { defineConfig, type Plugin } from 'vite';
 // inline styles and its websocket for hot reload.
 function csp(): Plugin {
   return {
-    name: 'lode-csp',
+    name: 'quarry-csp',
     transformIndexHtml(html, ctx) {
       const dev = !!ctx.server;
       const policy = [

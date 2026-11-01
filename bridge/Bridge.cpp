@@ -14,7 +14,7 @@
 using namespace Qt::StringLiterals;
 namespace rpc = ws::jsonrpc;
 
-namespace lode {
+namespace quarry {
 
 Bridge::Bridge(ws::IndexService* index, ws::SearchEngine* engine, QString access, QObject* parent)
     : QObject(parent)
@@ -155,7 +155,7 @@ void Bridge::hello(Session& session, const QJsonValue& rpcId, const QJsonObject&
         return;
     }
     QJsonObject result;
-    result[u"name"_s] = QStringLiteral(LODE_NAME);
+    result[u"name"_s] = QStringLiteral(QUARRY_NAME);
     result[u"protocol"_s] = kProtocol;
     result[u"engine"_s] = QStringLiteral(WINSHUN_VERSION);
     result[u"access"_s] = m_access;
@@ -280,4 +280,4 @@ void Bridge::itemResolve(Session& session, const QJsonValue& rpcId, const QJsonO
     send(session, rpc::response(rpcId, launch::toJson(launch::resolve(row.value()))));
 }
 
-} // namespace lode
+} // namespace quarry

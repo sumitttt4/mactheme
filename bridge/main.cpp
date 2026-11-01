@@ -32,7 +32,7 @@ namespace {
 // The shell makes the name: "<prefix>.<random>". Letters, digits, '.', '-', '_' only.
 bool validPipeName(const QString& name)
 {
-    const QString prefix = QStringLiteral(LODE_PIPE_PREFIX) + u'.';
+    const QString prefix = QStringLiteral(QUARRY_PIPE_PREFIX) + u'.';
     if (!name.startsWith(prefix) || name.size() > 200 || name.size() <= prefix.size())
         return false;
     for (const QChar c : name) {
@@ -45,7 +45,7 @@ bool validPipeName(const QString& name)
 QString defaultIndexDir()
 {
     const QString local = qEnvironmentVariable("LOCALAPPDATA");
-    return QDir(local).filePath(QStringLiteral(LODE_NAME) + u"/index"_s);
+    return QDir(local).filePath(QStringLiteral(QUARRY_NAME) + u"/index"_s);
 }
 
 // How NTFS volumes are read: through the index service when it answers
@@ -90,7 +90,7 @@ void watchStdin()
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName(QStringLiteral(LODE_NAME));
+    QCoreApplication::setApplicationName(QStringLiteral(QUARRY_NAME));
 
     const QStringList args = QCoreApplication::arguments();
     QString pipeName;
@@ -109,14 +109,14 @@ int main(int argc, char* argv[])
         }
     }
     if (pipeName.isEmpty()) // run by hand: the user's own name
-        pipeName = QStringLiteral(LODE_PIPE_PREFIX) + u'.' + QString::fromStdWString(ws::pipe::userSid());
+        pipeName = QStringLiteral(QUARRY_PIPE_PREFIX) + u'.' + QString::fromStdWString(ws::pipe::userSid());
     if (!validPipeName(pipeName)) {
         std::fprintf(stderr, "wsbridge: bad pipe name\n");
         return 2;
     }
 
     // One bridge per Windows session.
-    const std::wstring mutexName = L"Local\\" + QStringLiteral(LODE_NAME).toStdWString() + L".Bridge.Instance";
+    const std::wstring mutexName = L"Local\\" + QStringLiteral(QUARRY_NAME).toStdWString() + L".Bridge.Instance";
     const HANDLE instance = ::CreateMutexW(nullptr, TRUE, mutexName.c_str());
     if (!instance || ::GetLastError() == ERROR_ALREADY_EXISTS) {
         std::fprintf(stderr, "wsbridge: already running in this session\n");
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
     ws::SystemCatalog places;
     ws::SearchEngine engine(&index, &apps, &places);
 
-    lode::Bridge bridge(&index, &engine, access);
+    quarry::Bridge bridge(&index, &engine, access);
     DWORD error = 0;
     if (!bridge.start(pipeName.toStdWString(), &error)) {
         std::fprintf(stderr, "wsbridge: cannot serve the pipe (Win32 error %lu)\n", error);

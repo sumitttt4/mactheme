@@ -5,7 +5,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace lode {
+namespace quarry {
 
 namespace {
 
@@ -62,4 +62,4 @@ bool sameUserAndSession(HANDLE clientToken, QString& why)
     return true;
 }
 
-} // namespace lode
+} // namespace quarry

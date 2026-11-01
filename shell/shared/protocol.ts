@@ -55,8 +55,8 @@ export const MAX_QUERY_CHARS = 512;
 export const MAX_HANDLE_CHARS = 32;
 export const MAX_RESULTS = 200;
 
-// The renderer's view of the main process (preload.ts exposes it as window.lode).
-export interface LodeApi {
+// The renderer's view of the main process (preload.ts exposes it as window.quarry).
+export interface QuarryApi {
   search(text: string, scope: Scope, limit: number): Promise<SearchReply | { error: string }>;
   open(id: string): Promise<{ ok: boolean; error?: string }>;
   reveal(id: string): Promise<{ ok: boolean; error?: string }>;

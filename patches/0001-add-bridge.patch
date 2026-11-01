@@ -5,9 +5,9 @@
  add_subdirectory(src/updater)
  
 +# Personal fork (FORK-NOTES.md): the JSON-RPC bridge for the Electron shell.
-+# Only when configured with -DLODE_ROOT=<repo>; a stock build is unchanged.
-+if(DEFINED LODE_ROOT)
-+    add_subdirectory("${LODE_ROOT}/bridge" "${CMAKE_BINARY_DIR}/bridge")
++# Only when configured with -DQUARRY_ROOT=<repo>; a stock build is unchanged.
++if(DEFINED QUARRY_ROOT)
++    add_subdirectory("${QUARRY_ROOT}/bridge" "${CMAKE_BINARY_DIR}/bridge")
 +endif()
 +
  # The plugins that come with Win顺 (plugins/, docs/plugins.md), staged next

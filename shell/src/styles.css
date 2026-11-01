@@ -1,4 +1,4 @@
-/* Lode: the launcher's look. System fonts only (nothing is fetched). */
+/* Quarry: the launcher's look. System fonts only (nothing is fetched). */
 
 :root {
   --font: 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -15,7 +15,7 @@
   --text-2: #a9a2c4;
   --text-3: #77718c;
   --tint: #8c76d1;
-  --accent: #d6a24c; /* lode: a vein of gold */
+  --accent: #d6a24c; /* gold: what you dig out of the quarry */
   --accent-2: #ff8a3d;
   --accent-ink: #1a1408;
   --accent-soft: rgb(214 162 76 / 0.13);

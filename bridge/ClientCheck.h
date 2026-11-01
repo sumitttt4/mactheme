@@ -10,10 +10,10 @@
 
 #include <windows.h>
 
-namespace lode {
+namespace quarry {
 
 // `clientToken`: the client's, as the pipe server identified it (may be
 // null: then false). `why` says what did not match.
 bool sameUserAndSession(HANDLE clientToken, QString& why);
 
-} // namespace lode
+} // namespace quarry

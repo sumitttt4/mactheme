@@ -47,7 +47,7 @@ side-by-side comparison with stock WinShun where one exists.
 - [ ] Enter opens each kind and the opened program takes the foreground. Ctrl+Enter reveals files and folders.
 - [ ] Esc and losing focus hide the window. The tray menu's Quit ends the bridge too (Task Manager shows no `wsbridge.exe`).
 - [ ] Killing `wsbridge.exe` by hand: the footer shows Engine offline, then the bridge comes back.
-- [ ] A second `wsbridge.exe --pipe Lode.Bridge.x` exits with "already running".
+- [ ] A second `wsbridge.exe --pipe Quarry.Bridge.x` exits with "already running".
 - [ ] Network: with Resource Monitor or `netstat -b`, neither `wsbridge.exe` nor the shell opens a connection.
 
 ## Gaps logged (deferred, not dropped)

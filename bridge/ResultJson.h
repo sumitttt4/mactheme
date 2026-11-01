@@ -10,7 +10,7 @@
 #include <QJsonObject>
 #include <QString>
 
-namespace lode {
+namespace quarry {
 
 // "file", "folder", "app", "setting", "web", "plugin".
 QString kindOf(const ws::SearchResult& result);
@@ -19,4 +19,4 @@ QJsonObject toJson(const ws::SearchResult& result, const QString& handle);
 // "idle", "loading", "building", "ready".
 QString stateName(ws::IndexService::State state);
 
-} // namespace lode
+} // namespace quarry

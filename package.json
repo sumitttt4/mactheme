@@ -1,5 +1,5 @@
 {
-  "name": "lode",
+  "name": "quarry",
   "private": true,
   "description": "Personal Windows launcher. The app is in shell/ and bridge/; this file only builds the web preview (Cloudflare).",
   "scripts": {

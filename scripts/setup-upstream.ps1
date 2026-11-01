@@ -22,17 +22,17 @@ try {
     $dirty = git status --porcelain
     if ($dirty) { throw "upstream/ has local changes; commit or stash them first" }
     git fetch origin $Commit
-    git checkout -B lode-local $Commit
+    git checkout -B quarry-local $Commit
     if ($LASTEXITCODE) { throw "cannot check out $Commit" }
     foreach ($patch in Get-ChildItem (Join-Path $root 'patches') -Filter '*.patch' | Sort-Object Name) {
         git apply --check $patch.FullName
         if ($LASTEXITCODE) { throw "patch does not apply: $($patch.Name)" }
         git apply $patch.FullName
         git add -A
-        git -c user.name=lode -c user.email=lode@localhost commit -q -m "lode: $($patch.BaseName)"
+        git -c user.name=quarry -c user.email=quarry@localhost commit -q -m "quarry: $($patch.BaseName)"
         Write-Host "applied $($patch.Name)"
     }
-    Write-Host "upstream/ is at $Commit plus the patches, on branch lode-local"
+    Write-Host "upstream/ is at $Commit plus the patches, on branch quarry-local"
 } finally {
     Pop-Location
 }

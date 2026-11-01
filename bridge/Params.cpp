@@ -6,7 +6,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace lode::params {
+namespace quarry::params {
 
 bool onlyKeys(const QJsonObject& params, const QStringList& allowed, QString& problem)
 {
@@ -74,4 +74,4 @@ bool readEnum(const QJsonObject& params, const QString& key, const QStringList& 
     return true;
 }
 
-} // namespace lode::params
+} // namespace quarry::params

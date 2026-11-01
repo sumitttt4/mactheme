@@ -4,7 +4,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace lode {
+namespace quarry {
 
 QString kindOf(const ws::SearchResult& result)
 {
@@ -91,4 +91,4 @@ QString stateName(ws::IndexService::State state)
     return u"idle"_s;
 }
 
-} // namespace lode
+} // namespace quarry

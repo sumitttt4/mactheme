@@ -8,7 +8,7 @@ fixes stays cheap only while this list stays short.
 
 | File | Change | Why | Upstream-able? |
 |---|---|---|---|
-| `CMakeLists.txt` | `add_subdirectory("${LODE_ROOT}/bridge" …)`, only when `LODE_ROOT` is defined (`patches/0001-add-bridge.patch`) | The bridge has to build against wscore and wsmcp_proto with upstream's targets and compile options. A stock build (no `LODE_ROOT`) is unchanged. | No, it's personal. |
+| `CMakeLists.txt` | `add_subdirectory("${QUARRY_ROOT}/bridge" …)`, only when `QUARRY_ROOT` is defined (`patches/0001-add-bridge.patch`) | The bridge has to build against wscore and wsmcp_proto with upstream's targets and compile options. A stock build (no `QUARRY_ROOT`) is unchanged. | No, it's personal. |
 
 Nothing in `src/core`, `src/service`, `src/extract` or `src/mcp` is changed.
 
@@ -35,10 +35,10 @@ Nothing in `src/core`, `src/service`, `src/extract` or `src/mcp` is changed.
 
 | What | Stock WinShun | This build | Status |
 |---|---|---|---|
-| Bridge pipe | — | `Lode.Bridge.<random 128-bit>` per start | isolated |
-| Bridge instance mutex | `Local\WinShun.Instance` (the app) | `Local\Lode.Bridge.Instance` | isolated |
-| Index folder | `%LOCALAPPDATA%\WinShun\…` | `%LOCALAPPDATA%\Lode\index` | isolated (a second snapshot, a second index in memory while both run) |
-| Electron data | — | `%APPDATA%\Lode` | isolated |
+| Bridge pipe | — | `Quarry.Bridge.<random 128-bit>` per start | isolated |
+| Bridge instance mutex | `Local\WinShun.Instance` (the app) | `Local\Quarry.Bridge.Instance` | isolated |
+| Index folder | `%LOCALAPPDATA%\WinShun\…` | `%LOCALAPPDATA%\Quarry\index` | isolated (a second snapshot, a second index in memory while both run) |
+| Electron data | — | `%APPDATA%\Quarry` | isolated |
 | Windows service | `WinShun` | **uses the stock service** as a read-only client over `\\.\pipe\WinShun.Volumes` | **not isolated** |
 | Service pipe | `WinShun.Volumes` | same | **not isolated** |
 | Autostart task / Run key | `WinShun` | none yet (phase 6) | n/a |

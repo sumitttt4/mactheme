@@ -40,7 +40,7 @@ if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
 $preset = $Config.ToLower()
 Push-Location $upstream
 try {
-    cmake --preset $preset "-DLODE_ROOT=$root"
+    cmake --preset $preset "-DQUARRY_ROOT=$root"
     if ($LASTEXITCODE) { throw 'configure failed' }
     if ($All) {
         cmake --build --preset $preset

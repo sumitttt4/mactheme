@@ -1,7 +1,7 @@
-import type { LodeApi } from '../shared/protocol';
+import type { QuarryApi } from '../shared/protocol';
 
 declare global {
   interface Window {
-    lode: LodeApi;
+    quarry: QuarryApi;
   }
 }

@@ -11,7 +11,7 @@
 #include <QString>
 #include <QStringList>
 
-namespace lode::launch {
+namespace quarry::launch {
 
 struct Plan {
     enum class How {
@@ -29,4 +29,4 @@ struct Plan {
 Plan resolve(const ws::SearchResult& result);
 QJsonObject toJson(const Plan& plan);
 
-} // namespace lode::launch
+} // namespace quarry::launch

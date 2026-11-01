@@ -1,6 +1,6 @@
 {
-  "name": "lode-shell",
-  "productName": "Lode",
+  "name": "quarry-shell",
+  "productName": "Quarry",
   "private": true,
   "version": "0.1.0",
   "description": "Personal Windows launcher: React UI on WinShun's engine",
@@ -33,8 +33,8 @@
     "vite": "8.3.3"
   },
   "build": {
-    "appId": "local.lode.launcher",
-    "productName": "Lode",
+    "appId": "local.quarry.launcher",
+    "productName": "Quarry",
     "directories": {
       "output": "release"
     },
@@ -56,7 +56,7 @@
     "win": {
       "target": "dir",
       "icon": "build/icon.png",
-      "executableName": "Lode"
+      "executableName": "Quarry"
     },
     "publish": null
   },

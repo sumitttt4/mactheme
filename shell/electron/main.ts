@@ -15,8 +15,8 @@ import * as validate from './validate';
 
 const WIDTH = 820;
 const HOTKEYS = ['Control+Space', 'Control+Alt+Space']; // the first that Windows lets us have
-const devUrl = process.env.LODE_DEV_URL;
-const useMock = process.argv.includes('--mock') || process.env.LODE_MOCK === '1' || process.platform !== 'win32';
+const devUrl = process.env.QUARRY_DEV_URL;
+const useMock = process.argv.includes('--mock') || process.env.QUARRY_MOCK === '1' || process.platform !== 'win32';
 
 app.setName(identity.name);
 app.setAppUserModelId(`local.${identity.id}.launcher`);
@@ -29,7 +29,7 @@ let hotkey: string | null = null;
 let quitting = false;
 
 function bridgeExe(): string {
-  if (process.env.LODE_BRIDGE_EXE) return process.env.LODE_BRIDGE_EXE;
+  if (process.env.QUARRY_BRIDGE_EXE) return process.env.QUARRY_BRIDGE_EXE;
   if (app.isPackaged) return join(process.resourcesPath, 'bridge', 'wsbridge.exe');
   return join(__dirname, '..', '..', 'bridge-bin', 'wsbridge.exe');
 }
@@ -89,7 +89,7 @@ function show(): void {
   });
   win.show();
   win.focus();
-  win.webContents.send('lode:shown');
+  win.webContents.send('quarry:shown');
 }
 
 function toggle(): void {
@@ -103,12 +103,12 @@ function registerHotkey(): void {
       hotkey = key;
       return;
     }
-    console.warn(`[lode] ${key} is taken by another program`);
+    console.warn(`[quarry] ${key} is taken by another program`);
   }
 }
 
 function engineChanged(state: EngineState): void {
-  win?.webContents.send('lode:engine', state);
+  win?.webContents.send('quarry:engine', state);
   if (tray) tray.setToolTip(trayTip(state));
 }
 
@@ -137,7 +137,7 @@ function handleIpc(): void {
   const fromOurWindow = (e: Electron.IpcMainInvokeEvent | Electron.IpcMainEvent) =>
     win !== null && e.sender === win.webContents && e.senderFrame === win.webContents.mainFrame;
 
-  ipcMain.handle('lode:search', async (e, text: unknown, scope: unknown, limit: unknown) => {
+  ipcMain.handle('quarry:search', async (e, text: unknown, scope: unknown, limit: unknown) => {
     if (!fromOurWindow(e)) return { error: 'refused' };
     const t = validate.queryText(text);
     const s = validate.scope(scope);
@@ -163,14 +163,14 @@ function handleIpc(): void {
       return { ok: false, error: (error as Error).message };
     }
   };
-  ipcMain.handle('lode:open', act('open'));
-  ipcMain.handle('lode:reveal', act('reveal'));
-  ipcMain.handle('lode:engine', (e) => (fromOurWindow(e) ? engine.state() : null));
+  ipcMain.handle('quarry:open', act('open'));
+  ipcMain.handle('quarry:reveal', act('reveal'));
+  ipcMain.handle('quarry:engine', (e) => (fromOurWindow(e) ? engine.state() : null));
 
-  ipcMain.on('lode:hide', (e) => {
+  ipcMain.on('quarry:hide', (e) => {
     if (fromOurWindow(e)) win?.hide();
   });
-  ipcMain.on('lode:resize', (e, height: unknown) => {
+  ipcMain.on('quarry:resize', (e, height: unknown) => {
     const h = validate.windowHeight(height);
     if (!fromOurWindow(e) || h === null || !win) return;
     const [w, current] = win.getContentSize();

@@ -47,15 +47,15 @@ const PHASES: [string, string, string, 'now' | 'next' | 'later'][] = [
 const FAQ: [string, string][] = [
   [
     'Is it free?',
-    'Yes. Lode is open source under the MIT license: use it, change it, share it. The search engine it builds on, WinShun, is MIT too.',
+    'Yes. Quarry is open source under the MIT license: use it, change it, share it. The search engine it builds on, WinShun, is MIT too.',
   ],
   [
     'What do I need?',
-    'Windows 10 or 11, 64-bit. Download the zip, unzip it anywhere and run Lode.exe. No installer, no account.',
+    'Windows 10 or 11, 64-bit. Download the zip, unzip it anywhere and run Quarry.exe. No installer, no account, and nothing else to install: the engine comes compiled inside.',
   ],
   [
     'Why is there an optional service?',
-    'Reading a drive’s file table directly needs administrator rights. WinShun’s small index service does that, installed once with one consent, and makes results instant. Without it Lode still works, with your normal rights, by walking your drives (slower the first time).',
+    'Reading a drive’s file table directly needs administrator rights. WinShun’s small index service does that, installed once with one consent, and makes results instant. Without it Quarry still works, with your normal rights, by walking your drives (slower the first time).',
   ],
   [
     'Does it send anything online?',
@@ -72,7 +72,7 @@ const FAQ: [string, string][] = [
 ];
 
 function tryQuery(text: string) {
-  window.dispatchEvent(new CustomEvent('lode:try', { detail: text }));
+  window.dispatchEvent(new CustomEvent('quarry:try', { detail: text }));
   document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -138,7 +138,7 @@ export function Landing() {
         <div className="nav-inner">
           <a className="brand" href="#top">
             <Mark />
-            Lode
+            Quarry
           </a>
           <nav className="nav-links" aria-label="Sections">
             {SECTIONS.map(([id, label]) => (
@@ -148,7 +148,7 @@ export function Landing() {
             ))}
           </nav>
           <div className="nav-actions">
-            <a className="nav-github" href={REPO} target="_blank" rel="noreferrer noopener" aria-label="Lode on GitHub">
+            <a className="nav-github" href={REPO} target="_blank" rel="noreferrer noopener" aria-label="Quarry on GitHub">
               <GitHubIcon size={18} />
             </a>
             <a className="btn-dark" href="#download">
@@ -202,7 +202,7 @@ export function Landing() {
             </div>
           </div>
           <p className="stage-note">
-            The real Lode interface, running on sample data in your browser. Type, use the arrow keys, press Tab. The app searches
+            The real Quarry interface, running on sample data in your browser. Type, use the arrow keys, press Tab. The app searches
             your own drives.
           </p>
         </section>
@@ -310,7 +310,7 @@ export function Landing() {
             <div className="download-main">
               <p className="kicker">Download</p>
               <h2>
-                Get Lode
+                Get Quarry
                 <br />
                 for Windows.
               </h2>
@@ -330,7 +330,7 @@ export function Landing() {
                 <span className="step-n">1</span>
                 <span>
                   <strong>Unzip and run</strong>
-                  Unzip <code>Lode-…-windows-x64.zip</code> anywhere and open <code>Lode.exe</code>. It lives in the tray.
+                  Unzip <code>Quarry-…-windows-x64.zip</code> anywhere and open <code>Quarry.exe</code>. It lives in the tray.
                 </span>
               </li>
               <li>
@@ -356,10 +356,11 @@ export function Landing() {
 
           <div className="source">
             <div>
-              <p className="kicker">Build it yourself</p>
+              <p className="kicker">For developers</p>
               <p className="source-lede">
-                Everything is on GitHub: the React interface, the C++ bridge and the scripts that build them. Issues and pull
-                requests are welcome.
+                You don’t need any of this to use Quarry: the download comes ready to run. To build it yourself, everything is on
+                GitHub: the React interface, the small C++ bridge to the search engine, and the scripts. Issues and pull requests
+                are welcome.
               </p>
               <a className="link-arrow" href={REPO} target="_blank" rel="noreferrer noopener">
                 <GitHubIcon /> sumitttt4/mactheme <Arrow />
@@ -368,8 +369,8 @@ export function Landing() {
             <pre className="code" aria-label="Build from source">
               <code>
                 <span className="c"># Windows · PowerShell · VS 2022 + Qt 6.8 + Node 22</span>
-                {'\n'}git clone {REPO}.git lode
-                {'\n'}cd lode
+                {'\n'}git clone {REPO}.git quarry
+                {'\n'}cd quarry
                 {'\n'}./scripts/setup-upstream.ps1
                 {'\n'}./scripts/build-bridge.ps1
                 {'\n'}cd shell; npm install; npm start
@@ -448,7 +449,7 @@ export function Landing() {
           <div className="footer-brand">
             <a className="brand" href="#top">
               <Mark size={20} />
-              Lode
+              Quarry
             </a>
             <p>A fast, private launcher for Windows. Open source under the MIT license.</p>
           </div>
@@ -476,7 +477,7 @@ export function Landing() {
           </nav>
         </div>
         <div className="footer-base">
-          <span>© 2026 Lode contributors</span>
+          <span>© 2026 Quarry contributors</span>
           <span>Type set in Geist Serif and Figtree</span>
         </div>
       </footer>

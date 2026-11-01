@@ -22,7 +22,7 @@ export function lockDown(devUrl: string | undefined): void {
   const ses = session.defaultSession;
   ses.webRequest.onBeforeRequest((details, callback) => {
     const ok = allowed(details.url);
-    if (!ok) console.warn(`[lode] blocked request (network policy): ${details.url}`);
+    if (!ok) console.warn(`[quarry] blocked request (network policy): ${details.url}`);
     callback({ cancel: !ok });
   });
   ses.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));

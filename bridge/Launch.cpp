@@ -10,7 +10,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace lode::launch {
+namespace quarry::launch {
 
 namespace {
 
@@ -115,4 +115,4 @@ QJsonObject toJson(const Plan& plan)
     return o;
 }
 
-} // namespace lode::launch
+} // namespace quarry::launch

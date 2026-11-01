@@ -7,7 +7,7 @@
 #include <QString>
 #include <QStringList>
 
-namespace lode::params {
+namespace quarry::params {
 
 inline constexpr qsizetype kMaxQueryChars = 512;
 inline constexpr qsizetype kMaxHandleChars = 32;
@@ -26,4 +26,4 @@ bool readInt(const QJsonObject& params, const QString& key, int min, int max, in
 // One of `allowed`. Missing: `out` keeps its value.
 bool readEnum(const QJsonObject& params, const QString& key, const QStringList& allowed, QString& out, QString& problem);
 
-} // namespace lode::params
+} // namespace quarry::params

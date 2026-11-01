@@ -17,7 +17,7 @@ const PLACEHOLDER: Record<Scope, string> = {
 const isWebPreview = () => document.documentElement.classList.contains('web-preview');
 
 export function App() {
-  const lode = window.lode;
+  const quarry = window.quarry;
   const [query, setQuery] = useState('');
   const [scope, setScope] = useState<Scope>('all');
   const [rows, setRows] = useState<SearchRow[]>([]);
@@ -38,9 +38,9 @@ export function App() {
   const { sections, order } = useMemo(() => sectionize(rows), [rows]);
 
   useEffect(() => {
-    void lode.engine().then(setEngine);
-    const offEngine = lode.onEngine(setEngine);
-    const offShown = lode.onShown(() => {
+    void quarry.engine().then(setEngine);
+    const offEngine = quarry.onEngine(setEngine);
+    const offShown = quarry.onShown(() => {
       input.current?.focus();
       input.current?.select();
     });
@@ -48,7 +48,7 @@ export function App() {
       offEngine();
       offShown();
     };
-  }, [lode]);
+  }, [quarry]);
 
   // The web landing page's example chips fill the box.
   useEffect(() => {
@@ -59,8 +59,8 @@ export function App() {
       setQuery(text.slice(0, MAX_QUERY_CHARS));
       input.current?.focus({ preventScroll: true });
     };
-    window.addEventListener('lode:try', onTry);
-    return () => window.removeEventListener('lode:try', onTry);
+    window.addEventListener('quarry:try', onTry);
+    return () => window.removeEventListener('quarry:try', onTry);
   }, []);
 
   // Each keystroke asks; the engine runs only the newest search, and an
@@ -77,7 +77,7 @@ export function App() {
       return;
     }
     setBusy(true);
-    void lode.search(query, scope, LIMIT).then((reply) => {
+    void quarry.search(query, scope, LIMIT).then((reply) => {
       if (mine !== seq.current) return;
       setBusy(false);
       if ('error' in reply) {
@@ -91,16 +91,16 @@ export function App() {
       setSelected(0);
       list.current?.scrollTo({ top: 0 });
     });
-  }, [query, scope, lode]);
+  }, [query, scope, quarry]);
 
   // The window is as tall as what it shows.
   useLayoutEffect(() => {
     const el = root.current;
     if (!el) return;
-    const observer = new ResizeObserver(() => lode.resize(Math.ceil(el.getBoundingClientRect().height)));
+    const observer = new ResizeObserver(() => quarry.resize(Math.ceil(el.getBoundingClientRect().height)));
     observer.observe(el);
     return () => observer.disconnect();
-  }, [lode]);
+  }, [quarry]);
 
   useEffect(() => {
     if (!keyboardMoved.current) return;
@@ -112,10 +112,10 @@ export function App() {
   const act = useCallback(
     async (row: SearchRow | undefined, how: 'open' | 'reveal') => {
       if (!row) return;
-      const result = how === 'open' ? await lode.open(row.id) : await lode.reveal(row.id);
+      const result = how === 'open' ? await quarry.open(row.id) : await quarry.reveal(row.id);
       setProblem(result.ok ? null : (result.error ?? 'Could not open it.'));
     },
-    [lode],
+    [quarry],
   );
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -159,7 +159,7 @@ export function App() {
       case 'Escape':
         e.preventDefault();
         if (isWebPreview() && query) setQuery('');
-        else lode.hide();
+        else quarry.hide();
         break;
     }
   };

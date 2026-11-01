@@ -1,8 +1,8 @@
-// The web preview: no Electron, no bridge. window.lode answers from made-up
+// The web preview: no Electron, no bridge. window.quarry answers from made-up
 // rows in the page itself; opening anything only says what would happen.
 
 import { mockSearch } from '../../shared/mockSearch';
-import type { EngineState, LodeApi, SearchRow } from '../../shared/protocol';
+import type { EngineState, QuarryApi, SearchRow } from '../../shared/protocol';
 
 const rows = new Map<string, SearchRow>();
 let generation = 0;
@@ -19,7 +19,7 @@ function preview(verb: string, id: string) {
   return { ok: false, error: `Web preview: on Windows this would ${verb} “${row.name}”.` };
 }
 
-const api: LodeApi = {
+const api: QuarryApi = {
   async search(text, scope, limit) {
     await new Promise((r) => setTimeout(r, 40));
     const gen = ++generation;
@@ -47,7 +47,7 @@ const api: LodeApi = {
   },
 };
 
-window.lode = api;
+window.quarry = api;
 document.documentElement.classList.add('web-preview');
 // The launcher is shown dark on the lavender page, whatever the system theme.
 document.documentElement.dataset.theme = 'dark';

@@ -11,7 +11,7 @@ const url = 'http://localhost:5173/';
 const electron = require('electron'); // the path to its binary
 const child = spawn(electron, ['.', ...process.argv.slice(2)], {
   stdio: 'inherit',
-  env: { ...process.env, LODE_DEV_URL: url },
+  env: { ...process.env, QUARRY_DEV_URL: url },
 });
 child.on('exit', async (code) => {
   await server.close();

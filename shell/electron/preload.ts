@@ -2,25 +2,25 @@
 // with fixed arguments. No Node, no ipcRenderer, no generic invoke.
 
 import { contextBridge, ipcRenderer, type IpcRendererEvent } from 'electron';
-import type { EngineState, LodeApi, Scope } from '../shared/protocol';
+import type { EngineState, QuarryApi, Scope } from '../shared/protocol';
 
-const api: LodeApi = {
-  search: (text: string, scope: Scope, limit: number) => ipcRenderer.invoke('lode:search', text, scope, limit),
-  open: (id: string) => ipcRenderer.invoke('lode:open', id),
-  reveal: (id: string) => ipcRenderer.invoke('lode:reveal', id),
-  engine: () => ipcRenderer.invoke('lode:engine'),
-  hide: () => ipcRenderer.send('lode:hide'),
-  resize: (height: number) => ipcRenderer.send('lode:resize', height),
+const api: QuarryApi = {
+  search: (text: string, scope: Scope, limit: number) => ipcRenderer.invoke('quarry:search', text, scope, limit),
+  open: (id: string) => ipcRenderer.invoke('quarry:open', id),
+  reveal: (id: string) => ipcRenderer.invoke('quarry:reveal', id),
+  engine: () => ipcRenderer.invoke('quarry:engine'),
+  hide: () => ipcRenderer.send('quarry:hide'),
+  resize: (height: number) => ipcRenderer.send('quarry:resize', height),
   onShown: (callback: () => void) => {
     const listener = () => callback();
-    ipcRenderer.on('lode:shown', listener);
-    return () => ipcRenderer.off('lode:shown', listener);
+    ipcRenderer.on('quarry:shown', listener);
+    return () => ipcRenderer.off('quarry:shown', listener);
   },
   onEngine: (callback: (state: EngineState) => void) => {
     const listener = (_e: IpcRendererEvent, state: EngineState) => callback(state);
-    ipcRenderer.on('lode:engine', listener);
-    return () => ipcRenderer.off('lode:engine', listener);
+    ipcRenderer.on('quarry:engine', listener);
+    return () => ipcRenderer.off('quarry:engine', listener);
   },
 };
 
-contextBridge.exposeInMainWorld('lode', api);
+contextBridge.exposeInMainWorld('quarry', api);

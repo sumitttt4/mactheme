@@ -34,7 +34,7 @@
 #include <optional>
 #include <string>
 
-namespace lode {
+namespace quarry {
 
 inline constexpr int kProtocol = 1;
 inline constexpr qsizetype kMaxLineBytes = 64 * 1024; // requests are small: a query, a handle
@@ -98,4 +98,4 @@ private:
     quint64 m_generation = 0;
 };
 
-} // namespace lode
+} // namespace quarry

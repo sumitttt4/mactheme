@@ -1,4 +1,4 @@
-# Builds Lode for Windows and publishes it as a GitHub release.
+# Builds Quarry for Windows and publishes it as a GitHub release.
 #   git tag v0.1.0 && git push origin v0.1.0
 # or run it by hand from the Actions tab (a draft release, to check first).
 name: Release
@@ -53,7 +53,7 @@ jobs:
         shell: pwsh
         run: |
           $version = (Get-Content shell/package.json | ConvertFrom-Json).version
-          $out = "Lode-$version-windows-x64"
+          $out = "Quarry-$version-windows-x64"
           Copy-Item shell/release/win-unpacked $out -Recurse
           Copy-Item LICENSE, THIRD-PARTY-NOTICES.md "$out/"
           Copy-Item upstream/LICENSE "$out/LICENSE.WinShun.txt"
